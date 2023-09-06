@@ -1,3 +1,4 @@
+import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
 import org.jetbrains.kotlin.kapt3.base.Kapt.kapt
 
 plugins {
@@ -22,6 +23,11 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+
+        buildFeatures.buildConfig = true
+        val key: String = gradleLocalProperties(rootDir).getProperty("TMDB_API_KEY") ?: ""
+        buildConfigField("String", "TMDB_API_KEY", "\"$key\"")
+
     }
 
     buildTypes {
@@ -31,7 +37,10 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+
         }
+
+
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
@@ -51,6 +60,7 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
+
 }
 
 dependencies {
