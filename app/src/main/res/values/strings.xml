@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Movies Catalogue</string>
+    <string name="connection_error">Could not reach the server, check your internet connection.</string>
+    <string name="error">Oops, something went wrong!</string>
+    <string name="welcome">Welcome Back!</string>
+    <string name="new_releases">Checkout new releases!</string>
+    <string name="categories">Categories</string>
+    <string name="trending">All Popular Movies</string>
+    <string name="see_all">View all</string>
 </resources>
