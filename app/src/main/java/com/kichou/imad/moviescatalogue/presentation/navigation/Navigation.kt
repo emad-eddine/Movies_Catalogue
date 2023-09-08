@@ -5,6 +5,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.kichou.imad.moviescatalogue.presentation.screens.main_screen.MainScreen
+import com.kichou.imad.moviescatalogue.presentation.screens.movie_detail_screen.MovieDetailScreen
 import com.kichou.imad.moviescatalogue.presentation.screens.splash_screen.SplashScreen
 
 
@@ -21,12 +22,12 @@ fun AppNavigation() {
 
         composable(route = Screens.mainScreen.route){
 
-            MainScreen()
+            MainScreen(navController = navController)
 
         }
 
-        composable(route = Screens.movieDetailScreen.route){
-
+        composable(route = Screens.movieDetailScreen.route + "/{movieId}"){
+            MovieDetailScreen(navController = navController)
         }
 
     }

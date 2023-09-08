@@ -2,9 +2,11 @@ package com.kichou.imad.moviescatalogue.di
 
 import android.content.Context
 import com.kichou.imad.moviescatalogue.common.Constants
+import com.kichou.imad.moviescatalogue.data.repository.MovieDetailRepositoryImp
 import com.kichou.imad.moviescatalogue.data.repository.MoviesGenreRepositoryImp
 import com.kichou.imad.moviescatalogue.data.repository.TrendingMoviesRepositoryImp
 import com.kichou.imad.moviescatalogue.data.source.remote.TmdbApi
+import com.kichou.imad.moviescatalogue.domain.repository.MovieDetailRepository
 import com.kichou.imad.moviescatalogue.domain.repository.MoviesGenreRepository
 import com.kichou.imad.moviescatalogue.domain.repository.TrendingMoviesRepository
 import dagger.Module
@@ -49,6 +51,10 @@ object AppModule {
         return TrendingMoviesRepositoryImp(tmdbApi,context)
     }
 
-
+    @Provides
+    @Singleton
+    fun provideMovieDetailRepository(tmdbApi: TmdbApi , @ApplicationContext context: Context) : MovieDetailRepository{
+        return MovieDetailRepositoryImp(tmdbApi,context)
+    }
 
 }

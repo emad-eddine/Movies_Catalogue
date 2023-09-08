@@ -17,3 +17,6 @@ val DarkYellow  = Color(0xFFDBB83F)
 val lightBlue = Color(0xFF064663)
 
 val WhiteText  = Color(0xFFF2F7F7)
+
+val Purple = Color(0xFFB196D7)
+

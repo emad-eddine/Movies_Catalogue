@@ -1,6 +1,7 @@
 package com.kichou.imad.moviescatalogue.presentation.screens.main_screen.components
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -40,7 +41,8 @@ import com.kichou.imad.moviescatalogue.presentation.ui.theme.WhiteText
 
 @Composable
 fun TrendingMoviesSection(modifier : Modifier = Modifier,
-                          trendingMovies: List<TrendingMovies>
+                          trendingMovies: List<TrendingMovies>,
+                          onClick: (String) -> Unit
 ) {
 
 
@@ -58,7 +60,9 @@ fun TrendingMoviesSection(modifier : Modifier = Modifier,
             }
         ){
 
-            TrendingMovieItem(trendingMovies[it])
+            TrendingMovieItem(trendingMovies[it]){movieId->
+                onClick(movieId)
+            }
 
         }
 
@@ -72,23 +76,16 @@ fun TrendingMoviesSection(modifier : Modifier = Modifier,
 
 @Composable
 fun TrendingMovieItem(
-    trendingMovies: TrendingMovies
+    trendingMovies: TrendingMovies,
+    onClick : (String) -> Unit
 ) {
 
     Column (modifier = Modifier
-        .padding(6.dp),
+        .padding(6.dp)
+        .clickable {
+                   onClick(trendingMovies.movieId.toString())
+        },
         verticalArrangement = Arrangement.Center){
-
-
-
-//        AsyncImage(model = Constants.API_IMAGES_BASE_URL + trendingMovies.moviePosterPath,
-//            contentDescription = trendingMovies.movieTitle,
-//            modifier = Modifier
-//                .width(150.dp)
-//                .height(200.dp)
-//                .clip(shape = RoundedCornerShape(20.dp)),
-//            contentScale = ContentScale.FillBounds
-//            )
 
 
         SubcomposeAsyncImage(

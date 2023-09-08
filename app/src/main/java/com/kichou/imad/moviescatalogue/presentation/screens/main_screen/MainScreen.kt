@@ -27,7 +27,9 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavHostController
 import com.kichou.imad.moviescatalogue.R
+import com.kichou.imad.moviescatalogue.presentation.navigation.Screens
 import com.kichou.imad.moviescatalogue.presentation.screens.main_screen.components.CategoriesSection
 import com.kichou.imad.moviescatalogue.presentation.screens.main_screen.components.SearchBar
 import com.kichou.imad.moviescatalogue.presentation.screens.main_screen.components.TopSection
@@ -39,7 +41,9 @@ import com.kichou.imad.moviescatalogue.presentation.ui.theme.WhiteText
 
 @Composable
 fun MainScreen(
-  mainScreenViewModel: MainScreenViewModel = hiltViewModel()) {
+    mainScreenViewModel: MainScreenViewModel = hiltViewModel(),
+    navController: NavHostController
+) {
 
 
     val scrolState = rememberScrollState()
@@ -153,7 +157,9 @@ fun MainScreen(
         }
         else{
             if(trendingMoviesState.trendingMovies!=null){
-                TrendingMoviesSection(trendingMovies = trendingMoviesState.trendingMovies)
+                TrendingMoviesSection(trendingMovies = trendingMoviesState.trendingMovies){
+                    navController.navigate(route = Screens.movieDetailScreen.route + "/${it}")
+                }
             }
             else if(trendingMoviesState.error?.isNotEmpty() == true){
                 Text(text = trendingMoviesState.error,
