@@ -1,11 +1,16 @@
 package com.kichou.imad.moviescatalogue.di
 
 import android.content.Context
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 import com.kichou.imad.moviescatalogue.common.Constants
+import com.kichou.imad.moviescatalogue.data.repository.MovieDetailFireBaseRepositoryImp
 import com.kichou.imad.moviescatalogue.data.repository.MovieDetailRepositoryImp
 import com.kichou.imad.moviescatalogue.data.repository.MoviesGenreRepositoryImp
 import com.kichou.imad.moviescatalogue.data.repository.TrendingMoviesRepositoryImp
 import com.kichou.imad.moviescatalogue.data.source.remote.TmdbApi
+import com.kichou.imad.moviescatalogue.domain.repository.MovieDetailFirebaseRepository
 import com.kichou.imad.moviescatalogue.domain.repository.MovieDetailRepository
 import com.kichou.imad.moviescatalogue.domain.repository.MoviesGenreRepository
 import com.kichou.imad.moviescatalogue.domain.repository.TrendingMoviesRepository
@@ -55,6 +60,18 @@ object AppModule {
     @Singleton
     fun provideMovieDetailRepository(tmdbApi: TmdbApi , @ApplicationContext context: Context) : MovieDetailRepository{
         return MovieDetailRepositoryImp(tmdbApi,context)
+    }
+
+
+    @Provides
+    @Singleton
+    fun provideFirebaseRealTimeDataBase() = Firebase.database.reference
+
+
+    @Provides
+    @Singleton
+    fun provideMovieDetailFireBaseRepository(ref: DatabaseReference) : MovieDetailFirebaseRepository{
+        return MovieDetailFireBaseRepositoryImp(ref)
     }
 
 }

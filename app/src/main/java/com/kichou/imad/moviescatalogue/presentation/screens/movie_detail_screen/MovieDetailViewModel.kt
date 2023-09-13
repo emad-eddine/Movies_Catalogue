@@ -6,6 +6,8 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.kichou.imad.moviescatalogue.common.Resource
+import com.kichou.imad.moviescatalogue.domain.model.MovieDetailFireBase
+import com.kichou.imad.moviescatalogue.domain.use_cases.add_movie_firebase_use_case.AddMovieToFireBaseUseCase
 import com.kichou.imad.moviescatalogue.domain.use_cases.get_movie_detail_use_case.GetMovieDetailUseCase
 import com.kichou.imad.moviescatalogue.presentation.screens.main_screen.MovieGenreState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -18,6 +20,7 @@ import javax.inject.Inject
 @HiltViewModel
 class MovieDetailViewModel @Inject constructor(
     private val getMovieDetailUseCase: GetMovieDetailUseCase,
+    private val addMovieToFireBaseUseCase: AddMovieToFireBaseUseCase,
     savedStateHandle: SavedStateHandle
 ) : ViewModel(){
 
@@ -76,6 +79,13 @@ class MovieDetailViewModel @Inject constructor(
     }
 
 
+     suspend fun addMovieTofireBase(movieDetailFireBase: MovieDetailFireBase){
+
+
+        addMovieToFireBaseUseCase(movieDetailFireBase)
+
+
+    }
 
 
 

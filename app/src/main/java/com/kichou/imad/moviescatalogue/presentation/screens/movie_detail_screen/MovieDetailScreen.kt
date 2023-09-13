@@ -24,6 +24,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -41,11 +42,13 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.kichou.imad.moviescatalogue.R
+import com.kichou.imad.moviescatalogue.domain.model.MovieDetailFireBase
 import com.kichou.imad.moviescatalogue.presentation.screens.movie_detail_screen.components.DetailMovieTopSection
 import com.kichou.imad.moviescatalogue.presentation.screens.movie_detail_screen.components.MoviesDetailSection
 import com.kichou.imad.moviescatalogue.presentation.ui.theme.DarkYellow
 import com.kichou.imad.moviescatalogue.presentation.ui.theme.Roboto
 import com.kichou.imad.moviescatalogue.presentation.ui.theme.WhiteText
+import kotlinx.coroutines.launch
 
 
 @Composable
@@ -80,8 +83,8 @@ fun MovieDetailScreen(
         ),
         label = ""
     )
-    
 
+    val coroutineScope = rememberCoroutineScope()
 
     Column (
         modifier = Modifier
@@ -101,6 +104,19 @@ fun MovieDetailScreen(
                     .fillMaxHeight(animateState.value),
                 onBackBtnClicked = {
                     navController.popBackStack()
+                },
+                onFavBtnClicked = {
+
+                    coroutineScope.launch {
+                        movieDetailViewModel.addMovieTofireBase(
+                            MovieDetailFireBase(
+                                movieId = movieDetailState.data.movieId.toString() ,
+                                movieName = movieDetailState.data.movieName,
+                                movieTitle = movieDetailState.data.movieDescription
+                            )
+                        )
+                    }
+
                 }
             )
 
